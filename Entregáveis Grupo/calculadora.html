@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeção Economica ReTech</title>
+</head>
+<body>
+
+    <div style="display:flex; align-items: center; ">
+        <img src="../Assets/logo.png" alt="Logo ReTech" style="width: 100px; height: auto;">
+        <div>
+             <h1 style="color: darkgreen; margin: 0;">ReTech</h1>
+             <h2 style="margin: 0;">Simulador de Economia para Coleta de Resíduos</h2>
+        </div>
+    </div>
+   
+    <br>
+    DADOS: 
+    <br>
+    Autonomia do caminhão é de <b>2,5km/litro</b>
+    <br>
+    Valor médio do Diesel S-10: <b>R$ 6,17/litro</b>
+    <br>
+
+    <br>
+    
+    <span>Nome da cidade para a projeção de custos:</span>
+    <input type="text" id="input_cidade"> <br>
+
+    <span>Quantidade total de veículos utilizados para a coleta de resíduos(diária):</span>
+    <input type="text" id="input_veiculos"> <br>
+
+    <span>Média de quilômetros rodados por caminhão(km/dia):</span>
+    <input type="text" id="input_km"> <br>
+
+    <span>Número médio de deslocamentos feitos pela Frota (diária):</span>
+    <input type="text" id="input_deslocamentos"> <br>
+
+    <button onclick="calcular()">Calcular Impacto Econômico</button>
+    <button onclick="Limpar()">Limpar Simulação</button>
+
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+
+    var mes = 0;
+  
+    function calcular(){
+        var cidade = input_cidade.value;
+        var veiculos = Number(input_veiculos.value);
+        var km = Number(input_km.value); 
+        var deslocamentos = Number(input_deslocamentos.value);
+        var gastoKM = km / 2.5;
+        var gastoCombustivel = gastoKM * 6.17;
+        var gastoFrota = gastoCombustivel * veiculos;
+        var gastoDeslocamentos = gastoFrota * deslocamentos;
+        var gastoTotal = gastoDeslocamentos * 30;
+        var gastoRetech = gastoTotal * 0.60;
+        var economia = gastoTotal - gastoRetech;
+
+        mes ++;
+        var economiaTotal = economia * mes;
+
+         div_mensagem.innerHTML = `
+            <h3>Relatório de Impacto Econômico - <span style="color: darkgreen"> ${cidade} </span></h3>
+            <p><b>Custo atual:</b> ${gastoTotal.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}</p>
+            <p><b>Economia estimada com o Sistema de Monitoramento ReTech:</b> ${economia.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})} (40%)
+            <p><b>Em ${mes} mês(es) você economizou:</b> ${economiaTotal.toLocaleString("pt-BR", {style: "currency", currency: "BRL"})}</p>
+            <br>
+            <p> A Retech propõe à Prefeitura da cidade de ${cidade} a adoção de um sistema de monitoramento inteligente de lixeiras
+            subterrâneas, capaz de <b> <span style="color: darkgreen">reduzir  aproximadamente 50% das Frotas.</span> </b> <br>
+            Com sensores em tempo real e dashboards de gestão, a solução otimiza rotas, diminui o
+            consumo de combustível, preserva a infraestrutura urbana e contribui para a saúde pública
+            ao evitar acúmulo de lixo e proliferação de vetores. <br> Trata-se de uma medida inovadora e eficiente,
+            que promove economia e melhora a qualidade de vida da população. </p>
+        `;
+    }
+
+    function Limpar(){
+        div_mensagem.innerHTML = "";
+        mes = 0;
+    }
+</script>
+
+
