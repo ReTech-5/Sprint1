@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Simulador Financeiro</h1>
+    <h2>ReTech</h2>
+    <br>
+    <label for="ipt_dtcoleta">Distância percorrida pelos caminhões(km):</label>
+    <input id="ipt_dtcoleta" type="number">
+    <br>
+    <label for="ipt_salario">Quantidade de funcionários da frota de coleta:</label>
+    <input id="ipt_salario" type="number">
+    <br>
+    <label for="ipt_funcionario">Média salarial dos funcionários:</label>
+    <input id="ipt_funcionario" type="number">
+    <br>
+    <button onclick="calculo1()">Cálculo sem a ReTech</button>
+    <button onclick="calculo2()">Cálculo com a ReTech</button>
+    <button onclick="limpar()">Limpar simulação</button>
+    <br>
+    <div id="div_mensagem"></div> 
+
+</body>
+</html>
+<script>
+    function calculo1(){
+        var dist = Number(ipt_dtcoleta.value);
+        var sal = Number(ipt_salario.value);
+        var funcionario = Number(ipt_funcionario.value)
+        var distTotal = dist * 3.15;
+        var salTotal = sal * funcionario;
+        var adicional = 1518 * 40/100;
+        salTotal += adicional;
+        var total = salTotal + distTotal
+    
+            div_mensagem.innerHTML = `O gasto mensal com combustível usado para realização das coletas<br>
+        (usando como base R$3,15 por km rodado) totalizará no final do mês: <p style= "color: red"><b>R$ ${distTotal}</b></p>.
+        <br>
+        E o valor da folha salarial dos funcionários ao fim do mês 
+        (considerando o salário médio de R$${funcionario} e o adicional de 40% em relaçao a insalubridade)<br>
+        resultará em: <p style= "color: red"><b>R$ ${salTotal}</b></p>.
+        <br>
+        Totalizando ao fim do mês um custo de: <p style= "color: red"><b>R$ ${total}</b></p>
+        <br><br>.`
+    }
+
+    
+    function calculo2(){
+        var dist = Number(ipt_dtcoleta.value);
+        var sal = Number(ipt_salario.value);
+        var distTotal = dist * 3.15;
+        var funcionario = Number(ipt_funcionario.value);
+        var salTotal = sal * funcionario;
+        var adicional = 1518 * 40/100;
+        salTotal += adicional;
+        var distFinal = distTotal * 0.50
+        var salFinal = salTotal * 0.70
+        var total = salTotal + distTotal
+        var totalNovo = distFinal + salFinal
+        var discCombustivel = distTotal - distFinal
+        var discSalario = salTotal - salFinal
+        var discTotal = total - totalNovo
+        var PorcentagemC = discCombustivel / distTotal * 100
+        var PorcentagemS = discSalario / salTotal * 100
+        var PorcentagemT = discTotal / total * 100
+        div_mensagem.innerHTML = `O gasto mensal com combustível usado para realização das coletas<br>
+        (usando como base R$3,15 por km rodado) e com o sistema da ReTech totalizará no final do mês: <p style= "color: green"><b>R$ ${distFinal}</b></p>.
+        <br>
+        E o valor da folha salarial dos funcionários ao fim do mês 
+        (considerando o salário médio de R$${funcionario} e o adicional de 40% em relaçao a insalubridade)e os serviços da ReTech<br>
+        resultará em: <p style= "color: green"><b>R$ ${salFinal}</b></p>.
+        <br>
+        Totalizando ao fim do mês um custo de: <p style= "color: green"><b>R$ ${totalNovo}</b></p>
+        <br><br>.`
+        div_mensagem.innerHTML += `Desconto possível no combustível: <b style= "color: green">${PorcentagemC}%</b> <br>
+        Desconto possível na folha salarial: <b style= "color: green">${PorcentagemS}%</b> <br>
+        Desconto possível no custo total ao fim do mês: <b style= "color: green">${PorcentagemT}%</b>`
+    }
+
+    function limpar(){
+        div_mensagem.innerHTML = '';
+    }
+
+  
+    
+        
+
+    
+</script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <span><h1>ECÔNOMIA COM O SISTEMA RETECH</h1></span> <br />
+    <br />
+    <br />
+
+    Qual a Média de Custos Operacionais (REAIS)? <br />
+    <input type="text" id="input_co" /> <br />
+    <br />
+
+    Qual a Média de Viagens Realizadas? <br />
+    <input type="text" id="input_vr" />
+
+    <br />
+    <br />
+    <br />
+
+    <button onclick="calcular()">Calcular Ecônomia</button> <br /><br />
+    <div id="div_economia"></div>
+  </body>
+</html>
+<script>
+  function calcular() {
+    var custos = (Number(input_co.value) * 30) / 100;
+    var viagens = (Number(input_vr.value) * 50) / 100;
+    var diacustos = (Number(input_co.value) * 2.5) / 100;
+    var diaviagens = (Number(input_vr.value) * 4.16) / 100;
+
+    div_economia.innerHTML = `Com o nosso sistema de monitoramento instalado nas lixeiras da sua cidade, 
+        você terá uma ecônomia de até R$${diacustos} nos Custos Operacionais (manutenção, mão de obra e afins) 
+        com a redução de até 2,5% que nosso sistema proporciona por ano. <br> <br> 
+        E em relação ao percurso e deslocamento, terá uma redução de até ${diaviagens} em viagens, 
+        devido sistema informar os locais exatos que precisam de coleta, proporcionando redução diária de até 4,16% em viagens, 
+        consequentemente gerando ecônomia até do combustivel utilizado pelos caminhões e na quantidade de pessoas na equipe de coleta. <br> <br>
+
+        Ecônomia de 30% Anual de R$${custos} em custos operacionais   
+        Ecônomia de 50% Anual de ${viagens} em viagens de coleta`;
+  }
+</script>

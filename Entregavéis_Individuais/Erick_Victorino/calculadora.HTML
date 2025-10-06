@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>economia de manutenção com nosso sistema</title>
+</head>
+<body>
+  
+   <span style="color: rgb(10, 50, 5);font-style: italic;">Quantidade de caminhões:</span> <br>
+    <input type="number" id="caminhoes"><br><br>
+<span style="color:rgb(10, 50, 5);font-style: italic;">Km por caminhão por mês:</span> <br>
+    
+    <input type="number" id="kmMes"><br><br>
+
+    <span style="color: rgb(10, 50, 5);">Custo de manutenção por km (R$):</span><br>
+    <input type="number" id="custoKm"><br><br>
+
+    <button type="button" onclick="calcular()">calcular economia de manutenção</button><br><br>
+  
+
+  <div id="resultado"></div>
+
+  <script>
+    function calcular() {
+      var caminhoes = Number (document.getElementById("caminhoes").value);
+      var kmMes = Number(document.getElementById("kmMes").value);
+      var custoKm = Number(document.getElementById("custoKm").value);
+      var evitadas = 50;
+
+      var resultado = document.getElementById("resultado");
+
+      if (isNaN(caminhoes) || isNaN(kmMes) || isNaN(custoKm)) {
+        resultado.innerHTML = "❌ Por favor, preencha todos os campos corretamente.";
+      } else {
+        var total_km_mes = caminhoes * kmMes;
+        var km_economizado = total_km_mes * (evitadas / 100);
+        var economia_mensal = km_economizado * custoKm;
+        var economia_anual = economia_mensal * 12;
+        var total = caminhoes * kmMes * custoKm
+        var totalAnual = total * 12
+
+        resultado.innerHTML = 
+          `💰 a sua despesa mensal saira de R$${total.toFixed(2) } para R$ ${ economia_mensal.toFixed(2)} mensalmente <br>
+           e sua despesa anual saira de R$ ${totalAnual.toFixed(2)} para R$ ${economia_anual.toFixed(2)}`;
+      }
+    }
+  </script>
+</body>
+
+
+

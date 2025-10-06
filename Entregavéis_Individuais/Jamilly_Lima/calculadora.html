@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+</head>
+<body>
+    <h1 style="color: green;">Calculadora Financeira - ReTech</h1>
+
+    DADOS: 
+    <br>
+    Consumo médio do caminhão é de <b>2,5km/litro</b>
+    <br>
+    Valor médio do Diesel S-10: <b>R$ 6,07/litro</b>
+    <br>
+
+    <br>
+
+    PESQUISA DE RIBEIRÃO PRETO: 
+    <br>
+    Há redução de cerca de <b>50%</b> das viagens
+
+    <br>
+    <br>
+
+    <span>Qual a quantidade de caminhões que sua empresa possui?</span><br>
+    <input type="text" id="input_caminhoes">
+
+    <br>
+    <br>
+
+    <span>Qual a distância média por rota (km)?</span><br>
+    <input type="text" id="input_distancia">
+
+    <br>
+    <br>
+
+    <span>Quantas rotas são feitas por dia?</span><br>
+    <input type="text" id="input_rotas">
+
+    <br>
+    <br>
+
+    <button onclick="calcular()">Calcular Economia ReTech</button>
+
+    <br>
+    <br>
+
+    <div id="div_mensagem"></div><br>
+    
+</body>
+</html>
+<script>
+
+    var economia = 0;
+
+    function calcular() {
+    var num_caminhoes = Number(input_caminhoes.value);
+    var distancia_rota = Number (input_distancia.value);
+    var rotas = Number(input_rotas.value);
+    var km_total = distancia_rota*rotas;
+    var litros = km_total/2.5;
+    var gasto_medio = litros*6.07; 
+    var gasto_mensal = gasto_medio*30*num_caminhoes;
+    var reducao_rota = rotas*0.5
+    var gasto_retech = gasto_mensal*0.5;
+
+   economia = gasto_mensal - gasto_retech;
+
+    div_mensagem.innerHTML = `De acordo com os dados inseridos, sua empresa possui ${num_caminhoes} caminhões e a distância média por rota é de
+                            ${distancia_rota} km, realizando um total de ${rotas} rotas por dia. <br>
+
+                            Com isso, a distância total percorrida por dia é de ${km_total} km, resultando em ${litros} litros gastos por dia. <br>
+
+                            Assim, o gasto em reais de combustível usado nesse percurso de coleta é de 
+                            R$${gasto_medio.toFixed(2)}, totalizando um gasto mensal cerca de R$${gasto_mensal.toFixed(2)} <br>
+
+                            <br> Com o Sistema de Monitoramento da ReTech, o número das viagens reduz para ${reducao_rota} rotas e 
+                            o gasto mensal com combustível tende a ser R$${gasto_retech.toFixed(2)}. <br>
+
+                            Isso representa uma economia de R$${economia.toFixed(2)}.`;
+
+    }
+</script>

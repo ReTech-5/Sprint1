@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<style>
+  
+
+    .caixa-pai{
+    display: flex;
+    align-items: center;    
+    flex-direction: column;
+    background-color: silver;
+    width: 500px;
+    height: 500px;
+    margin-bottom: 20%;
+    margin-right: 20%;
+    margin-left: 20%;
+    border-radius: 15px;
+    padding-bottom: 50px;
+    }
+
+
+</style>
+<body>
+    <h1>Calculadora para Redução de Viagens</h1> <br> <br>
+    <div class="caixa-pai ">
+
+        <h2>Simulação:</h2>
+
+    Quantidade de viagens mensais sem sensor: <br>
+    <input type="number" id="input_sem"> <br> <br>
+    Quantidade de viagens mensais com sensor: <br>
+    <input type="number" id="input_com"> <br> <br>
+    Consumo de combustível aproximado (por litro) por viagem: <br>
+    <input type="number" id="input_consumo"> <br> <br>
+    <button onclick="calcular()">Calculo Redução</button> <br> <br>
+    <p s></p>
+     <h2>Resultado:</h2> <br> 
+    <div id="div_mensagem"></div>
+
+
+    </div>
+    
+   
+</body>
+</html>
+
+<script>
+    function calcular(){
+        var sem = Number(input_sem.value)
+        var com = Number(input_com.value)
+        var viagens = sem - com
+        var economia = viagens * Number(input_consumo.value)
+        if (sem == '') {
+            div_mensagem.innerHTML = `<p style="color: red;"> Insira os valores primeiro!</p>`
+        } else{
+       
+        div_mensagem.innerHTML = `A quantidade de viagens mensais foi de ${sem} para ${com}, reduzindo ${viagens} viagens por mês. <br>
+        Apresentando uma economia de ${economia} litros de combustivel por mês.`
+
+        }
+
+
+    }
+
+
+
+
+</script>
