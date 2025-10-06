@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div style="display:flex; align-items: center; ">
+        <img src="logo.png" alt="Logo ReTech" style="width: 100px; height: auto;">
+        <div>
+             <h1 style="color: darkgreen; margin: 0;">ReTech</h1>
+             <h2 style="margin: 0;">Simulador de Economia para Coleta de Resíduos</h2>
+        </div>
+    </div>
+
+    <br><br>
+
+    <span>Informe o nome da cidade para visualizar a projeção de custos:</span>
+    <input type="text" id="input_cidade"> <br>
+
+    <span>Informe a quantidade total de veículos utilizados para a coleta de resíduos:</span>
+    <input type="text" id="input_veiculos"> <br>
+
+    <span>Informe o valor aproximado gasto com combustível em cada Frota de coleta: (R$)</span>
+    <input type="text" id="input_combustivel"> <br>
+
+    <span>Informe o número médio de deslocamentos feitos mensalmente pelos caminhões de coleta:</span>
+    <input type="text" id="input_deslocamentos"> <br>
+
+    <span>Custo médio mensal com mão de obra (R$) - Incluir salários e encargos relacionados a motoristas e coletores: </span>
+    <input type="text" id="input_custoMensal"> <br>  <br>
+
+    <button onclick="calcular()">Calcular Impacto Econômico</button>
+    <button onclick="Limpar()">Limpar Simulação</button>
+
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+
+    var mes = 0;
+
+    function calcular(){
+        var cidade = input_cidade.value;
+        var veiculos = Number(input_veiculos.value);
+        var combustivel = Number(input_combustivel.value);
+        var deslocamentos = Number(input_deslocamentos.value);
+        var custoMensal = Number(input_custoMensal.value);
+
+        var custoAtual = (veiculos * combustivel * deslocamentos) + custoMensal;
+
+        var reducaoCustos = (veiculos * combustivel * deslocamentos + custoMensal) * 0.7;
+        var reducaoDeslocamentos = deslocamentos * 0.5;
+
+        var precoCombustivel = 6.17;
+        var reducaoPercentual = 0.30;
+       
+        if(cidade == "Ribeirão Preto") {
+            precoCombustivel = 6.20;
+            reducaoPercentual = 0.32;
+        }
+
+        if(cidade == "Indaiatuba"){
+           precoCombustivel = 5.89;
+           reducaoPercentual = 0.28;
+        }
+
+        var custoComReTech = custoAtual * (1 - reducaoPercentual);
+        var economia = custoAtual - custoComReTech;
+
+        mes ++;
+        var economiaTotal = economia * mes;
+
+         div_mensagem.innerHTML = `
+            <h3>Relatório de Impacto Econômico - <span style="color: darkgreen"> ${cidade} </span></h3>
+            <p><b>Custo atual:</b> R$ ${custoAtual.toFixed(2)}</p>
+            <p><b>Custo com o Sistema de Monitoramento ReTech:</b> R$ ${custoComReTech.toFixed(2)}</p>
+            <p><b>Economia estimada:</b> R$ ${economia.toFixed(2)} (${(reducaoPercentual*100).toFixed(0)}%)</p>
+            <p><b>Preço médio do combustível considerado:</b> R$ ${precoCombustivel.toFixed(2)}/litro</p>
+            <p><b>Em ${mes} mês(es) você economizou:</b> R$ ${economiaTotal.toFixed(2)}</p>
+            <br>
+            <p> A Retech propõe à Prefeitura da cidade de ${cidade} a adoção de um sistema de monitoramento inteligente de lixeiras
+            subterrâneas, capaz de <b> <span style="color: darkgreen">reduzir em aproximadamente 30% os custos operacionais da coleta de resíduos.</span> </b> <br>
+            Com sensores em tempo real e dashboards de gestão, a solução otimiza rotas, diminui o
+            consumo de combustível, preserva a infraestrutura urbana e contribui para a saúde pública
+            ao evitar acúmulo de lixo e proliferação de vetores. <br> Trata-se de uma medida inovadora e eficiente,
+            que promove economia e melhora a qualidade de vida da população. </p>
+        `;
+    }
+
+    function Limpar(){
+        div_mensagem.innerHTML = "";
+        mes = 0;
+    }
+</script>
+
+

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira - ReTech</title>
+</head>
+<body>
+    <h2>Calculadora Financeira ReTech</h2>
+
+    Rotas por dia: <input type="text" id="input_rotas"><br><br>
+    Quilos coletados por rota (kg): <input type="text" id="input_quilos"><br><br>
+    Distância média por rota (km): <input type="text" id="input_distancia"><br><br>
+    Consumo do caminhão (km por litro): <input type="text" id="input_consumo"><br><br>
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="div_resultado"></div>
+</body>
+</html>
+
+<script>
+    function calcular(){
+        var rotas = Number(input_rotas.value);
+        var quilos = Number(input_quilos.value);
+        var distancia = Number(input_distancia.value);
+        var consumo = Number(input_consumo.value);
+
+       
+        var precoCombustivel = 5.40; 
+        var desperdicioPadrao = 20; 
+        var economiaReTech = 40; 
+        var reducaoDesperdicioReTech = 40; 
+
+        
+        var totalDia = rotas * quilos; 
+        var desperdicioKg = totalDia * (desperdicioPadrao / 100); 
+        var aproveitadoKg = totalDia - desperdicioKg;
+
+        var desperdicioKgReTech = desperdicioKg * (1 - reducaoDesperdicioReTech/100);
+        var aproveitadoKgReTech = totalDia - desperdicioKgReTech;
+
+       
+        var kmMes = distancia * rotas * 30; 
+        var litrosGastos = kmMes / consumo;
+        var gastoCombustivel = litrosGastos * precoCombustivel;
+
+        var gastoReTech = gastoCombustivel * (1 - economiaReTech/100);
+        var economia = gastoCombustivel - gastoReTech;
+
+        div_resultado.innerHTML = `
+            📌 Total coletado por dia: ${totalDia} kg <br><br>
+
+            🗑️ Desperdício atual (20% fixo): ${desperdicioKg.toFixed(2)} kg <br>
+            ♻️ Aproveitado atual: ${aproveitadoKg.toFixed(2)} kg <br><br>
+
+            ✅ Desperdício com ReTech (-40%): ${desperdicioKgReTech.toFixed(2)} kg <br>
+            💡 Aproveitado com ReTech: ${aproveitadoKgReTech.toFixed(2)} kg <br><br>
+
+            🚛 Quilometragem mensal: ${kmMes} km <br>
+            ⛽ Litros gastos no mês: ${litrosGastos.toFixed(2)} L <br>
+            💰 Gasto com combustível (atual): R$ ${gastoCombustivel.toFixed(2)} <br><br>
+
+            ✅ Gasto com combustível com ReTech (-40%): R$ ${gastoReTech.toFixed(2)} <br>
+            💡 Economia total em combustível: R$ ${economia.toFixed(2)}
+        `;
+    }
+</script>
